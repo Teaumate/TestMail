@@ -112,11 +112,11 @@ exports.postSignup = (req, res, next) => {
     user.save((err) => {
       if (err) { return next(err); }
       var email = {
-          to: 'se56@laposte.net',//user.email,
+          to: user.email,
           from: 'admin@laposte.net',
           subject: 'Mail Validation',
-          text: 'Veuillez accéder à cette adresse pour valider votre inscription: localhost:3000/verify/'+ user.verif_token,
-          html: '<a href="localhost:3000/verify/' + user.verif_token + '">vers verification</a>'
+          text: 'Veuillez accéder à cette adresse pour valider votre inscription: https://mailvalidation.herokuapp.com/verify/'+ user.verif_token,
+          html: '<a href="https://mailvalidation.herokuapp.com/verify/' + user.verif_token + '">vers verification</a>'
       };
       
       mailer.sendMail(email, function(err, res) {
