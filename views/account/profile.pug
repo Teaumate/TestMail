@@ -3,3 +3,11 @@ extends ../layout
 block content
   .page-header
     h3 Liste des mails envoyés
+  ul
+    for mail in mails
+      li 
+        h4 To: #{mail.email.to}
+        h5 Subject: #{mail.email.subject}
+        h5 #{mail.email.text}
+    else
+      li no mail sent so far

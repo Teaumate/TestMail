@@ -3,6 +3,7 @@ const crypto = bluebird.promisifyAll(require('crypto'));
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
+const Mail = require('../models/Mail');
 var randomstring = require("randomstring");
 // const nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
@@ -112,10 +113,10 @@ exports.postSignup = (req, res, next) => {
       if (err) { return next(err); }
       var email = {
           to: 'se56@laposte.net',//user.email,
-          from: 'se561@laposte.net',
-          subject: 'Hi there',
-          text: 'Awesome sauce',
-          html: '<a href="verify/'+ user.verif_token +'">vers verification</a>'
+          from: 'admin@laposte.net',
+          subject: 'Mail Validation',
+          text: 'Veuillez accéder à cette adresse pour valider votre inscription: localhost:3000/verify/'+ user.verif_token,
+          html: '<a href="localhost:3000/verify/' + user.verif_token + '">vers verification</a>'
       };
       
       mailer.sendMail(email, function(err, res) {
@@ -161,8 +162,12 @@ exports.getVerify = (req, res) => {
  * Profile page.
  */
 exports.getAccount = (req, res) => {
+  Mail.find({'email.from':req.user.email}, function (err, mail) {
+    console.log(mail);
+    console.log(req.user.email);
   res.render('account/profile', {
-    title: 'Account Management'
+    title: 'Historique', mails: mail
+  });
   });
 };
 

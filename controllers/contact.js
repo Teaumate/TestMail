@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
- 
+const Mail = require('../models/Mail');
+
 // api key https://sendgrid.com/docs/Classroom/Send/api_keys.html 
 var options = {
     auth: {
@@ -38,7 +39,7 @@ exports.postContact = (req, res) => {
   var email = {
       to: req.body.email,
       from: requested.user.email,
-      subject: 'Hi there',
+      subject: req.body.subject,
       text: req.body.message,
       html: req.body.message
   };
@@ -49,6 +50,13 @@ exports.postContact = (req, res) => {
       }
       console.log(res);
   });
-  req.flash('succes', { msg: 'Message bien envoyé.' });
-  return res.redirect('/contact');
+  const mail = new Mail({
+    email
+  });
+  mail.save((err) => {
+    if (err) { return next(err); }
+    req.flash('succes', { msg: 'Message bien envoyé.' });
+    return res.redirect('/contact');
+  });
+
 };
