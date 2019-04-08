@@ -11,7 +11,9 @@
   "scripts": {
     "start": "node app.js",
     "postinstall": "npm rebuild node-sass",
-    "eslint": "eslint **/*.js"
+    "eslint": "eslint **/*.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
@@ -26,8 +28,8 @@
     "express": "^4.14.0",
     "express-flash": "^0.0.2",
     "express-session": "^1.14.2",
-    "express-status-monitor": "^0.1.5",
-    "express-validator": "^3.1.2",
+    "express-status-monitor": "^1.0.0",
+    "express-validator": "^5.0.0",
     "lusca": "^1.4.1",
     "mongoose": "^4.6.6",
     "morgan": "^1.7.0",
@@ -42,7 +44,8 @@
     "randomstring": "^1.1.5",
     "request": "^2.78.0",
     "sendgrid": "^5.2.0",
-    "validator": "^7.0.0"
+    "validator": "^9.4.1",
+    "snyk": "^1.148.0"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
@@ -71,5 +74,6 @@
     "plugins": [
       "chai-friendly"
     ]
-  }
+  },
+  "snyk": true
 }
