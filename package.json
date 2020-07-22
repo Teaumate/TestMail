@@ -11,7 +11,9 @@
   "scripts": {
     "start": "node app.js",
     "postinstall": "npm rebuild node-sass",
-    "eslint": "eslint **/*.js"
+    "eslint": "eslint **/*.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
@@ -42,7 +44,8 @@
     "randomstring": "^1.1.5",
     "request": "^2.78.0",
     "sendgrid": "^5.2.0",
-    "validator": "^7.0.0"
+    "validator": "^7.0.0",
+    "snyk": "^1.192.4"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
@@ -71,5 +74,6 @@
     "plugins": [
       "chai-friendly"
     ]
-  }
+  },
+  "snyk": true
 }
